@@ -1,13 +1,13 @@
-package com.jerry.concurrency.test;
+package com.jerry.concurrency.atomic;
 
-import com.jerry.concurrency.annotation.NotThreadSafe;
+import com.jerry.concurrency.annotation.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.Executor;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,8 +18,8 @@ import java.util.concurrent.Semaphore;
  */
 
 @Slf4j
-@NotThreadSafe
-public class ConcurrencyTest {
+@ThreadSafe
+public class AtomicExample {
 
     /**
      * 请求总数
@@ -31,7 +31,7 @@ public class ConcurrencyTest {
      */
     public static int threadTotal = 200;
 
-    public static int count = 0;
+    public static AtomicInteger count = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -51,10 +51,11 @@ public class ConcurrencyTest {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("count:{}" , count);
+        log.info("count:{}" , count.get());
     }
 
     private static void add() {
-        count++;
+        count.incrementAndGet();
+        // count.getAndIncrement();
     }
 }

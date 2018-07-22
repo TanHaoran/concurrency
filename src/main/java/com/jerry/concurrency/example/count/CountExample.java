@@ -1,8 +1,7 @@
-package com.jerry.concurrency.test;
+package com.jerry.concurrency.example.count;
 
 import com.jerry.concurrency.annotation.NotThreadSafe;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.Executor;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -19,7 +18,7 @@ import java.util.concurrent.Semaphore;
 
 @Slf4j
 @NotThreadSafe
-public class ConcurrencyTest {
+public class CountExample {
 
     /**
      * 请求总数
